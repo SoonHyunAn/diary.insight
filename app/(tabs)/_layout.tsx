@@ -1,33 +1,47 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import React from "react";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        headerShown: false, // 상단 헤더 숨김 (깔끔하게)
+        tabBarStyle: {
+          backgroundColor: "#222", // 탭바 배경색 어둡게
+          borderTopColor: "#333",
+        },
+        tabBarActiveTintColor: "#ffd700", // 선택된 탭 색상 (금색)
+        tabBarInactiveTintColor: "#888",
+      }}
+    >
+      {/* 1. 홈 (잠금화면 스타일) */}
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "홈",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="home-variant"
+              size={28}
+              color={color}
+            />
+          ),
         }}
       />
+
+      {/* 2. 관리 (리스트) */}
       <Tabs.Screen
-        name="explore"
+        name="manage"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "메모 관리",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="playlist-edit"
+              size={28}
+              color={color}
+            />
+          ),
         }}
       />
     </Tabs>
